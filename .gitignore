@@ -1,0 +1,41 @@
+# dependencies (any level)
+node_modules/
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# builds
+dropship-store/.next/
+dropship-store/out/
+dropship-store/build/
+coverage/
+
+# local databases — never commit data (Supabase is the source of truth)
+*.db*
+*.db-journal
+dropship-store/prisma/*.db*
+
+# user-uploaded product images (ephemeral locally; production uses Supabase Storage)
+dropship-store/public/uploads/*
+!dropship-store/public/uploads/.gitkeep
+
+# secrets — configure these in Vercel / Supabase dashboards instead
+.env*
+!.env.example
+
+# vercel / tooling
+.vercel
+.agent/
+.impeccable/
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.tsbuildinfo
+next-env.d.ts

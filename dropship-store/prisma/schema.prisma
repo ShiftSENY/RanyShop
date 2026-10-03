@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+enum Role {
+  ADMIN
+  CUSTOMER
+}
+
+enum OrderStatus {
+  READY_TO_SHIP
+  FOR_SHIPPING
+  TO_BE_DELIVERED
+  RECEIVED
+}
+
+enum PaymentMethod {
+  E_WALLET
+  BANK_TRANSFER
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  name         String?
+  role         String    @default("CUSTOMER")
+  phone        String?
+  address      String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  orders       Order[]
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  products    Product[]
+  createdAt   DateTime  @default(now())
+}
+
+model Product {
+  id            String      @id @default(cuid())
+  name          String
+  slug          String      @unique
+  details       String
+  originalPrice Float
+  discountPrice Float
+  categoryId    String
+  category      Category    @relation(fields: [categoryId], references: [id])
+  imageUrl      String?
+  stock         Int         @default(100)
+  orderItems    OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Order {
+  id              String        @id @default(cuid())
+  orderKey        String        @unique
+  userId          String
+  user            User          @relation(fields: [userId], references: [id])
+  shippingName    String
+  shippingPhone   String
+  shippingAddress String
+  paymentMethod   String
+  paymentStatus   String        @default("PAID")
+  status          String        @default("READY_TO_SHIP")
+  totalQuantity   Int
+  totalAmount     Float
+  items           OrderItem[]
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
