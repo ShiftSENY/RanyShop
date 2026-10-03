@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 enum Role {
@@ -29,7 +30,7 @@ model User {
   email        String    @unique
   passwordHash String
   name         String?
-  role         String    @default("CUSTOMER")
+  role         Role      @default(CUSTOMER)
   phone        String?
   address      String?
   createdAt    DateTime  @default(now())
@@ -70,9 +71,9 @@ model Order {
   shippingName    String
   shippingPhone   String
   shippingAddress String
-  paymentMethod   String
+  paymentMethod   PaymentMethod
   paymentStatus   String        @default("PAID")
-  status          String        @default("READY_TO_SHIP")
+  status          OrderStatus   @default(READY_TO_SHIP)
   totalQuantity   Int
   totalAmount     Float
   items           OrderItem[]

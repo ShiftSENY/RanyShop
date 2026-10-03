@@ -1,12 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { createClient } from "@supabase/supabase-js";
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
 import { randomUUID } from "crypto";
 
-const UPLOAD_DIR = join(process.cwd(), "public", "uploads");
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const BUCKET = "product-images";
+
+function getSupabaseAdmin() {
+  const url = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !serviceKey) return null;
+  return createClient(url, serviceKey);
+}
 
 export async function POST(request: NextRequest) {
   const session = await auth();
@@ -37,17 +45,39 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const ext = file.name.split(".").pop() || "jpg";
+    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
     const filename = `${randomUUID()}.${ext}`;
-
-    await mkdir(UPLOAD_DIR, { recursive: true });
-
     const bytes = await file.arrayBuffer();
-    await writeFile(join(UPLOAD_DIR, filename), Buffer.from(bytes));
+    const buffer = Buffer.from(bytes);
 
-    const imageUrl = `/uploads/${filename}`;
+    // Production: Supabase Storage (persists on Vercel)
+    const supabase = getSupabaseAdmin();
+    if (supabase) {
+      const { error } = await supabase.storage
+        .from(BUCKET)
+        .upload(filename, buffer, { contentType: file.type, upsert: false });
 
-    return NextResponse.json({ imageUrl, filename });
+      if (error) {
+        console.error("Supabase upload error:", error);
+        return NextResponse.json(
+          { error: "Failed to upload file" },
+          { status: 500 }
+        );
+      }
+
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from(BUCKET).getPublicUrl(filename);
+
+      return NextResponse.json({ imageUrl: publicUrl, filename });
+    }
+
+    // Local dev fallback: disk storage under public/uploads
+    const uploadDir = join(process.cwd(), "public", "uploads");
+    await mkdir(uploadDir, { recursive: true });
+    await writeFile(join(uploadDir, filename), buffer);
+
+    return NextResponse.json({ imageUrl: `/uploads/${filename}`, filename });
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json(
