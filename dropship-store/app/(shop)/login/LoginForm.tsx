@@ -122,18 +122,6 @@ export default function LoginForm() {
             {socialLoading === "facebook" ? <span>Signing in...</span> : <span>Continue with Facebook</span>}
           </button>
 
-          {/* TikTok */}
-          <button
-            onClick={() => handleSocialLogin("tiktok")}
-            disabled={socialLoading !== null}
-            className="w-full flex items-center justify-center gap-3 px-4 py-2.5 bg-black text-white rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors disabled:opacity-50 cursor-pointer shadow-2xs"
-          >
-            <svg className="w-4.5 h-4.5 fill-white" viewBox="0 0 24 24">
-              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.72a8.19 8.19 0 004.76 1.52v-3.45a4.85 4.85 0 01-1-.1z" />
-            </svg>
-            {socialLoading === "tiktok" ? <span>Signing in...</span> : <span>Continue with TikTok</span>}
-          </button>
-
           {/* Divider */}
           <div className="relative my-5">
             <div className="absolute inset-0 flex items-center">
