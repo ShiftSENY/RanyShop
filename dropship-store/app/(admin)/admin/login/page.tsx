@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
 
 export default function AdminLoginPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -27,8 +25,9 @@ export default function AdminLoginPage() {
       setError("Invalid email or password");
       setIsLoading(false);
     } else {
-      router.push("/admin/dashboard");
-      router.refresh();
+      // Full page load so the fresh session cookie is present
+      // when the guarded dashboard route is requested.
+      window.location.href = "/admin/dashboard";
     }
   };
 
