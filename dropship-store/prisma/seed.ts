@@ -1,9 +1,20 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
+import "dotenv/config";
+// 1. Create a pg connection pool using your DIRECT_URL (or DATABASE_URL)
+const pool = new Pool({
+  connectionString: process.env.DIRECT_URL || process.env.DATABASE_URL,
+});
 
-const prisma = new PrismaClient();
+// 2. Wrap the pool in PrismaPg adapter
+const adapter = new PrismaPg(pool);
 
+// 3. Pass the adapter to PrismaClient
+const prisma = new PrismaClient({ adapter });
 async function main() {
+  console.log("Seeding database...");
   const adminPassword = await bcrypt.hash("admin123", 10);
   const customerPassword = await bcrypt.hash("customer123", 10);
 
@@ -153,5 +164,6 @@ main()
     process.exit(1);
   })
   .finally(async () => {
+    await pool.end();
     await prisma.$disconnect();
   });
