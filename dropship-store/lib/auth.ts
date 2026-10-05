@@ -6,6 +6,8 @@ import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
+  trustHost: true,
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
@@ -26,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: { email: credentials.email as string },
         });
 
-        if (!user) {
+        if (!user || !user.passwordHash) {
           return null;
         }
 
@@ -59,22 +61,26 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider && account.provider !== "credentials") {
+        if (!user.email) return false;
+
         const existingUser = await db.user.findUnique({
-          where: { email: user.email! },
+          where: { email: user.email },
         });
 
         if (!existingUser) {
           const newUser = await db.user.create({
             data: {
-              email: user.email!,
+              email: user.email,
               passwordHash: "",
               name: user.name || null,
               role: "CUSTOMER",
             },
           });
           user.id = newUser.id;
+          (user as { role?: string }).role = newUser.role;
         } else {
           user.id = existingUser.id;
+          (user as { role?: string }).role = existingUser.role;
         }
       }
       return true;
