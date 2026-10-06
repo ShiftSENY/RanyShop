@@ -4,39 +4,47 @@ import { db } from "@/lib/db";
 import { generateOrderKey } from "@/lib/utils";
 
 export async function POST(request: NextRequest) {
-  const session = await auth();
+  try {
+    const session = await auth();
 
-  if (!session?.user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+    if (!session?.user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
 
-  const body = await request.json();
-  const { name, phone, address, paymentMethod, items, totalAmount, totalQuantity } = body;
+    const body = await request.json();
+    const { name, phone, address, paymentMethod, items, totalAmount, totalQuantity } = body;
 
-  const order = await db.order.create({
-    data: {
-      orderKey: generateOrderKey(),
-      userId: (session.user as { id: string }).id,
-      shippingName: name,
-      shippingPhone: phone,
-      shippingAddress: address,
-      paymentMethod,
-      totalAmount,
-      totalQuantity,
-      items: {
-        create: items.map((item: { productId: string; quantity: number; price: number }) => ({
-          productId: item.productId,
-          quantity: item.quantity,
-          price: item.price,
-        })),
+    const order = await db.order.create({
+      data: {
+        orderKey: generateOrderKey(),
+        userId: (session.user as { id: string }).id,
+        shippingName: name,
+        shippingPhone: phone,
+        shippingAddress: address,
+        paymentMethod,
+        totalAmount,
+        totalQuantity,
+        items: {
+          create: items.map((item: { productId: string; quantity: number; price: number }) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        },
       },
-    },
-    include: {
-      items: true,
-    },
-  });
+      include: {
+        items: true,
+      },
+    });
 
-  return NextResponse.json(order);
+    return NextResponse.json(order);
+  } catch (error) {
+    console.error("Order creation failed:", error);
+    return NextResponse.json(
+      { error: "Failed to place order. Please try again later." },
+      { status: 500 }
+    );
+  }
 }
 
 export async function GET() {

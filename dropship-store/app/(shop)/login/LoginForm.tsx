@@ -45,18 +45,19 @@ export default function LoginForm() {
     });
 
     if (result?.error) {
-      setError(
-        isRegister
-          ? "Registration successful. Please sign in."
-          : "Invalid email or password"
-      );
-      if (isRegister) {
+      if (isRegister && result.error === "CredentialsSignin") {
+        setError("Registration successful. Please sign in.");
         router.push("/login");
+      } else if (result.error === "CredentialsSignin") {
+        setError("Invalid email or password");
+      } else {
+        setError("Something went wrong. Please try again later.");
       }
       setIsLoading(false);
     } else {
-      router.push(redirect);
-      router.refresh();
+      // Full page load so the fresh session cookie is present
+      // when the destination route is requested.
+      window.location.href = redirect;
     }
   };
 

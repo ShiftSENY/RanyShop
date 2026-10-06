@@ -22,7 +22,11 @@ export default function AdminLoginPage() {
     });
 
     if (result?.error) {
-      setError("Invalid email or password");
+      setError(
+        result.error === "CredentialsSignin"
+          ? "Invalid email or password"
+          : "Something went wrong. Please try again later."
+      );
       setIsLoading(false);
     } else {
       // Full page load so the fresh session cookie is present

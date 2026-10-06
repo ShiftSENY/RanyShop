@@ -4,8 +4,17 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 import "dotenv/config";
 // 1. Create a pg connection pool using your DIRECT_URL (or DATABASE_URL)
+const connectionString =
+  process.env.DIRECT_URL || process.env.DATABASE_URL || "";
+const isLocal =
+  connectionString.includes("localhost") ||
+  connectionString.includes("127.0.0.1");
 const pool = new Pool({
-  connectionString: process.env.DIRECT_URL || process.env.DATABASE_URL,
+  connectionString,
+  // Supabase requires SSL; raw `pg` pools don't enable it by default.
+  ...(isLocal || !connectionString
+    ? {}
+    : { ssl: { rejectUnauthorized: false } }),
 });
 
 // 2. Wrap the pool in PrismaPg adapter
