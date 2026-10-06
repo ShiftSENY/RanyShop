@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getSession, signOut } from "next-auth/react";
 import { useCartStore } from "@/lib/store";
 import CartDrawer from "@/components/shop/CartDrawer";
 
@@ -12,6 +13,23 @@ export default function ShopLayout({
 }) {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const totalItems = useCartStore((state) => state.getTotalItems());
+  const [user, setUser] = useState<{
+    name?: string | null;
+    email?: string | null;
+  } | null>(null);
+
+  useEffect(() => {
+    getSession().then((session) => setUser(session?.user ?? null));
+  }, []);
+
+  const firstName =
+    user?.name?.trim().split(" ")[0] ||
+    user?.email?.split("@")[0] ||
+    "Account";
+
+  const handleLogout = () => {
+    signOut({ callbackUrl: "/" });
+  };
 
   return (
     <div className="min-h-full flex flex-col bg-gray-50">
@@ -73,12 +91,26 @@ export default function ShopLayout({
                   </span>
                 )}
               </button>
-              <Link
-                href="/login"
-                className="text-sm font-medium text-gray-700 hover:text-[#1a6f72] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100"
-              >
-                Login
-              </Link>
+              {user ? (
+                <>
+                  <span className="text-sm font-medium text-gray-700 px-3 py-1.5">
+                    Logged in as {firstName}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="text-sm font-medium text-gray-700 hover:text-[#1a6f72] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100 cursor-pointer"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  href="/login"
+                  className="text-sm font-medium text-gray-700 hover:text-[#1a6f72] transition-colors px-3 py-1.5 rounded-lg hover:bg-gray-100"
+                >
+                  Login
+                </Link>
+              )}
             </div>
           </div>
         </div>
