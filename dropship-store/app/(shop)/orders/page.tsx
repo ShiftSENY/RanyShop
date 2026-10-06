@@ -107,9 +107,11 @@ export default async function OrdersPage() {
                   <p>
                     Payment Method:{" "}
                     <span className="font-semibold text-gray-800">
-                      {order.paymentMethod === "E_WALLET"
-                        ? "E-Wallet"
-                        : "Bank Transfer"}
+                      {order.paymentMethod === "QR_CODE"
+                        ? "QR Code"
+                        : order.paymentMethod === "E_WALLET"
+                          ? "E-Wallet"
+                          : "Bank Transfer"}
                     </span>
                   </p>
                   <p>
