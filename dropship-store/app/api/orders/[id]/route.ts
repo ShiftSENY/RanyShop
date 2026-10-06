@@ -31,3 +31,27 @@ export async function PUT(
 
   return NextResponse.json(order);
 }
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const session = await auth();
+
+  if (!session?.user || (session.user as { role: string }).role !== "ADMIN") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await params;
+
+  try {
+    // Order items are removed automatically (onDelete: Cascade).
+    await db.order.delete({
+      where: { id },
+    });
+  } catch {
+    return NextResponse.json({ error: "Order not found" }, { status: 404 });
+  }
+
+  return NextResponse.json({ success: true });
+}

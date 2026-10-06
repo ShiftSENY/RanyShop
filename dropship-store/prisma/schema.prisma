@@ -17,6 +17,7 @@ enum OrderStatus {
   FOR_SHIPPING
   TO_BE_DELIVERED
   RECEIVED
+  CANCELLED
 }
 
 enum PaymentMethod {

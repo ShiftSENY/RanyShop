@@ -30,6 +30,7 @@ const statuses = [
   "FOR_SHIPPING",
   "TO_BE_DELIVERED",
   "RECEIVED",
+  "CANCELLED",
 ];
 
 export default function AdminOrdersPage() {
@@ -76,6 +77,21 @@ export default function AdminOrdersPage() {
 
     if (res.ok) {
       setOrders(orders.map((o) => (o.id === orderId ? { ...o, status } : o)));
+    }
+  };
+
+  const handleDelete = async (orderId: string, orderKey: string) => {
+    if (
+      !confirm(
+        `Delete order ${orderKey}? This permanently removes the order and its items.`
+      )
+    )
+      return;
+
+    const res = await fetch(`/api/orders/${orderId}`, { method: "DELETE" });
+
+    if (res.ok) {
+      setOrders(orders.filter((o) => o.id !== orderId));
     }
   };
 
@@ -199,8 +215,22 @@ export default function AdminOrdersPage() {
                             </span>
                           </div>
 
-                          {/* Toggle expand button */}
+                          {/* Toggle expand + delete buttons */}
                           <div className="md:col-span-1 text-left md:text-right">
+                            <div className="flex items-center justify-start md:justify-end gap-2">
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleDelete(order.id, order.orderKey)
+                                }
+                                title="Delete order"
+                                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border shadow-2xs hover:shadow-xs active:scale-95 transition-all duration-150 cursor-pointer bg-red-50/80 text-red-700 border-red-200/80 hover:bg-red-600 hover:text-white hover:border-red-600"
+                              >
+                                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                                <span>Delete</span>
+                              </button>
                             <button
                               type="button"
                               onClick={() => toggleExpand(order.id)}
@@ -222,6 +252,7 @@ export default function AdminOrdersPage() {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                               </svg>
                             </button>
+                            </div>
                           </div>
                         </div>
 
