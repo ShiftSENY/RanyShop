@@ -169,8 +169,8 @@ function ProductRow({
             />
           </svg>
         </button>
-        <Button onClick={handleBuyNow} size="sm" className="text-xs py-1.5 px-4 font-medium">
-          BUY
+        <Button onClick={handleBuyNow} size="sm" className="text-xs py-1.5 px-4 font-medium tracking-normal">
+          Buy now
         </Button>
       </div>
     </div>

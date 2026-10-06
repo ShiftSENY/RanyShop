@@ -28,7 +28,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-5">
         {products.map((product) => (
           <ProductCard
             key={product.id}
@@ -93,7 +93,7 @@ function ProductCard({
       : null;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col group">
+    <div className="bg-white rounded-lg sm:rounded-xl border border-gray-200 overflow-hidden shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col group">
       {/* ── Image Area ── */}
       <button
         type="button"
@@ -109,28 +109,28 @@ function ProductCard({
           />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center bg-gray-100/70 group-hover:opacity-80 transition-opacity">
-            <span className="text-3xl">📦</span>
+            <span className="text-2xl sm:text-3xl">📦</span>
           </div>
         )}
 
         {discountPercent !== null && discountPercent > 0 && (
-          <span className="absolute top-2.5 right-2.5 inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-500 text-white shadow-2xs">
+          <span className="absolute top-2 right-2 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-rose-500 text-white shadow-2xs">
             -{discountPercent}%
           </span>
         )}
       </button>
 
       {/* ── Card Content ── */}
-      <div className="p-4 sm:p-5 flex flex-col flex-1 justify-between gap-4">
+      <div className="p-3 sm:p-4 flex flex-col flex-1 justify-between gap-3">
         {/* Top Info Group */}
         <div>
-          <div className="flex items-center justify-between gap-2">
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-[#3AB7BA]/10 text-[#1a6f72]">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] sm:text-[11px] font-medium bg-[#3AB7BA]/10 text-[#1a6f72]">
               {product.category.name}
             </span>
             {product.stock <= 5 && product.stock > 0 && (
-              <span className="text-[11px] font-medium text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">
-                Only {product.stock} left
+              <span className="text-[10px] sm:text-[11px] font-medium text-amber-700 bg-amber-50 px-1.5 py-0.5 rounded">
+                {product.stock} left
               </span>
             )}
           </div>
@@ -138,104 +138,96 @@ function ProductCard({
           <button
             type="button"
             onClick={onQuickView}
-            className="block mt-2 text-left w-full cursor-pointer focus:outline-none group/title"
+            className="block mt-1.5 text-left w-full cursor-pointer focus:outline-none group/title"
           >
-            <h3 className="text-sm sm:text-base font-semibold text-gray-900 leading-snug line-clamp-2 group-hover/title:text-[#1a6f72] transition-colors">
+            <h3 className="text-xs sm:text-sm font-semibold text-gray-900 leading-snug line-clamp-2 group-hover/title:text-[#1a6f72] transition-colors">
               {product.name}
             </h3>
           </button>
 
           {/* Pricing Row */}
-          <div className="mt-2.5 flex items-baseline gap-2">
-            <span className="text-xs sm:text-sm text-gray-400 line-through tabular-nums font-normal">
+          <div className="mt-1.5 flex items-baseline gap-1.5 flex-wrap">
+            <span className="text-[11px] sm:text-xs text-gray-400 line-through tabular-nums font-normal">
               {formatPrice(product.originalPrice)}
             </span>
-            <span className="text-base sm:text-lg font-bold text-emerald-600 tabular-nums">
+            <span className="text-xs sm:text-sm font-bold text-emerald-600 tabular-nums">
               {formatPrice(product.discountPrice)}
             </span>
           </div>
         </div>
 
-        {/* ── Action Controls ── */}
-        <div className="pt-3 border-t border-gray-100 flex flex-col gap-2">
-          {/* Controls Row: Quantity Stepper + Add to Cart */}
-          <div className="flex items-center gap-2">
-            {/* Quantity Stepper */}
-            <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50/80 h-9 flex-shrink-0">
-              <button
-                type="button"
-                onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                aria-label="Decrease quantity"
-                className="w-8 h-full flex items-center justify-center text-sm font-semibold text-gray-700 hover:bg-gray-200/70 active:bg-gray-200 transition-colors cursor-pointer"
-              >
-                −
-              </button>
-              <span className="w-7 text-center text-xs font-semibold text-gray-900 tabular-nums select-none">
-                {quantity}
-              </span>
-              <button
-                type="button"
-                onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
-                aria-label="Increase quantity"
-                className="w-8 h-full flex items-center justify-center text-sm font-semibold text-gray-700 hover:bg-gray-200/70 active:bg-gray-200 transition-colors cursor-pointer"
-              >
-                +
-              </button>
-            </div>
-
-            {/* Add to Cart Button */}
+        {/* ── Action Controls Row ── */}
+        <div className="pt-2 border-t border-gray-100 flex items-center gap-1 sm:gap-1.5">
+          {/* Quantity Stepper */}
+          <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50/80 h-8 flex-shrink-0">
             <button
               type="button"
-              onClick={handleAddToCart}
-              aria-label={`Add ${product.name} to cart`}
-              className="flex-1 h-9 inline-flex items-center justify-center gap-1.5 px-2.5 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 text-xs font-medium transition-all cursor-pointer shadow-2xs active:scale-[0.98]"
+              onClick={() => setQuantity(Math.max(1, quantity - 1))}
+              aria-label="Decrease quantity"
+              className="w-5 sm:w-6 h-full flex items-center justify-center text-xs font-bold text-gray-700 hover:bg-gray-200/70 active:bg-gray-200 transition-colors cursor-pointer"
             >
-              {justAdded ? (
-                <>
-                  <svg
-                    className="w-3.5 h-3.5 text-emerald-600"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4.5 12.75l6 6 9-13.5"
-                    />
-                  </svg>
-                  <span className="text-emerald-600 font-semibold">Added!</span>
-                </>
-              ) : (
-                <>
-                  <svg
-                    className="w-3.5 h-3.5 text-gray-600"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.8}
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                    />
-                  </svg>
-                  <span>Add to Cart</span>
-                </>
-              )}
+              −
+            </button>
+            <span className="w-4.5 sm:w-5 text-center text-[11px] sm:text-xs font-semibold text-gray-900 tabular-nums select-none">
+              {quantity}
+            </span>
+            <button
+              type="button"
+              onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
+              aria-label="Increase quantity"
+              className="w-5 sm:w-6 h-full flex items-center justify-center text-xs font-bold text-gray-700 hover:bg-gray-200/70 active:bg-gray-200 transition-colors cursor-pointer"
+            >
+              +
             </button>
           </div>
 
-          {/* Full-width Buy Now Button */}
+          {/* Add to Cart Button (Icon only) */}
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            aria-label={`Add ${product.name} to cart`}
+            title="Add to cart"
+            className="w-8 h-8 flex-shrink-0 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white hover:bg-gray-50 active:bg-gray-100 text-gray-700 transition-all cursor-pointer shadow-2xs active:scale-95"
+          >
+            {justAdded ? (
+              <svg
+                className="w-4 h-4 text-emerald-600"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.5}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4.5 12.75l6 6 9-13.5"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-4 h-4 text-gray-700"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1.8}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                />
+              </svg>
+            )}
+          </button>
+
+          {/* Buy Now Button */}
           <Button
             type="button"
             onClick={handleBuyNow}
             size="sm"
-            className="w-full h-9 text-xs font-semibold tracking-wider uppercase"
+            className="flex-1 h-8 min-h-0 min-w-0 text-xs font-medium tracking-normal px-2"
           >
-            Buy Now
+            Buy now
           </Button>
         </div>
       </div>
