@@ -38,6 +38,32 @@ async function main() {
     },
   });
 
+  // Store admin account. Password is NEVER committed — it is read from
+  // the ADMIN_SEED_PASSWORD env var at seed time and stored only as
+  // a bcrypt hash. Unset the var after seeding.
+  const storeAdminEmail = "rany.shop.app@gmail.com";
+  if (process.env.ADMIN_SEED_PASSWORD) {
+    const storeAdminPassword = await bcrypt.hash(
+      process.env.ADMIN_SEED_PASSWORD,
+      10
+    );
+    await prisma.user.upsert({
+      where: { email: storeAdminEmail },
+      update: { role: "ADMIN" },
+      create: {
+        email: storeAdminEmail,
+        passwordHash: storeAdminPassword,
+        name: "Store Admin",
+        role: "ADMIN",
+      },
+    });
+    console.log("Upserted store admin:", storeAdminEmail);
+  } else {
+    console.log(
+      `Skipped store admin (${storeAdminEmail}): ADMIN_SEED_PASSWORD not set.`
+    );
+  }
+
   const customer = await prisma.user.upsert({
     where: { email: "customer@example.com" },
     update: {},
