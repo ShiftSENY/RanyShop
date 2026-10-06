@@ -31,6 +31,7 @@ const statuses = [
   "TO_BE_DELIVERED",
   "RECEIVED",
   "CANCELLED",
+  "REFUNDED",
 ];
 
 export default function AdminOrdersPage() {

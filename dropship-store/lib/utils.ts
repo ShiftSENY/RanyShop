@@ -57,6 +57,8 @@ export function getStatusColor(status: string): string {
       return "bg-green-100 text-green-800";
     case "CANCELLED":
       return "bg-red-100 text-red-800";
+    case "REFUNDED":
+      return "bg-orange-100 text-orange-800";
     default:
       return "bg-gray-100 text-gray-800";
   }
@@ -74,6 +76,8 @@ export function getStatusLabel(status: string): string {
       return "Received";
     case "CANCELLED":
       return "Cancelled";
+    case "REFUNDED":
+      return "Refunded";
     default:
       return status;
   }
