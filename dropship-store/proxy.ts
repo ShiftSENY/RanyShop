@@ -1,35 +1,37 @@
-import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { NextResponse } from "next/server";
+import { auth } from "@/lib/auth";
 
+// Single route guard, built on Auth.js' own session reader.
+// (Do NOT use getToken() from next-auth/jwt here: it defaults to the
+// non-secure cookie name, so on HTTPS it can never see the
+// `__Secure-authjs.session-token` cookie and every login loops.)
+export default auth((req) => {
+  const { nextUrl } = req;
+  const role = (req.auth?.user as { role?: string } | undefined)?.role;
 
-export async function proxy(request: NextRequest) {
-  const token = await getToken({
-    req: request,
-    // Must match the secret fallback in lib/auth.ts, otherwise the
-    // proxy can never decrypt the session and every login loops.
-    secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
-  });
-
-  const { pathname } = request.nextUrl;
-
-  if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
-    if (!token || token.role !== "ADMIN") {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
+  if (
+    nextUrl.pathname.startsWith("/admin") &&
+    nextUrl.pathname !== "/admin/login"
+  ) {
+    if (role !== "ADMIN") {
+      return NextResponse.redirect(new URL("/admin/login", nextUrl));
     }
   }
 
-  if (pathname.startsWith("/checkout") || pathname.startsWith("/orders")) {
-    if (!token) {
-      const loginUrl = new URL("/login", request.url);
-      loginUrl.searchParams.set("redirect", pathname);
+  if (
+    nextUrl.pathname.startsWith("/checkout") ||
+    nextUrl.pathname.startsWith("/orders")
+  ) {
+    if (!req.auth) {
+      const loginUrl = new URL("/login", nextUrl);
+      loginUrl.searchParams.set("redirect", nextUrl.pathname);
       return NextResponse.redirect(loginUrl);
     }
   }
 
   return NextResponse.next();
-}
+});
 
 export const config = {
   matcher: ["/admin/:path*", "/checkout/:path*", "/orders/:path*"],
 };
-
