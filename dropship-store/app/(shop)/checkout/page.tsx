@@ -63,7 +63,7 @@ export default function CheckoutPage() {
         const errorData = await response.json().catch(() => ({}));
         setErrorMessage(
           errorData.error ||
-            "Unable to place order at this moment. Please verify your details and try again."
+          "Unable to place order at this moment. Please verify your details and try again."
         );
       }
     } catch (error) {
@@ -227,7 +227,7 @@ export default function CheckoutPage() {
               </div>
               {(
                 [
-                  { method: "E-Wallet", desc: "GCash, Maya, PayPal, etc." },
+                  { method: "E-Wallet", desc: "Maya, GoTyme, PayPal, etc." },
                   {
                     method: "Bank Transfer",
                     desc: "Direct bank deposit or transfer",
