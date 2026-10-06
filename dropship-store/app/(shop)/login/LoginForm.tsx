@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/components/ui/Button";
 import Link from "next/link";
@@ -38,33 +38,56 @@ export default function LoginForm() {
       }
     }
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-    if (result?.error) {
-      if (isRegister && result.error === "CredentialsSignin") {
-        setError("Registration successful. Please sign in.");
-        router.push("/login");
-      } else if (result.error === "CredentialsSignin") {
-        setError("Invalid email or password");
-      } else {
-        setError("Something went wrong. Please try again later.");
+      if (!result || result.error || !result.ok) {
+        if (isRegister && result?.error === "CredentialsSignin") {
+          setError("Registration successful. Please sign in.");
+          router.push("/login");
+        } else if (result?.error === "CredentialsSignin") {
+          setError("Invalid email or password");
+        } else {
+          setError("Something went wrong. Please try again later.");
+        }
+        setIsLoading(false);
+        return;
       }
+
+      // Confirm the session cookie was actually saved before leaving.
+      // Without this, a failed sign-in silently navigates and the
+      // route guard bounces straight back to this login page.
+      const session = await getSession();
+      if (session?.user) {
+        // Full page load so the fresh session cookie is present
+        // when the destination route is requested.
+        window.location.href = redirect;
+      } else {
+        setError("Login could not be completed. Please try again later.");
+        setIsLoading(false);
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError("Something went wrong. Please try again later.");
       setIsLoading(false);
-    } else {
-      // Full page load so the fresh session cookie is present
-      // when the destination route is requested.
-      window.location.href = redirect;
     }
   };
 
   const handleSocialLogin = async (provider: string) => {
     setSocialLoading(provider);
     setError("");
-    await signIn(provider, { callbackUrl: redirect });
+    try {
+      await signIn(provider, { callbackUrl: redirect });
+    } catch (err) {
+      console.error("Social login failed:", err);
+      setError("Something went wrong. Please try again later.");
+    } finally {
+      setSocialLoading(null);
+    }
   };
 
   const inputCls =

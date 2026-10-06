@@ -5,7 +5,9 @@ import { getToken } from "next-auth/jwt";
 export async function proxy(request: NextRequest) {
   const token = await getToken({
     req: request,
-    secret: process.env.AUTH_SECRET,
+    // Must match the secret fallback in lib/auth.ts, otherwise the
+    // proxy can never decrypt the session and every login loops.
+    secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
   });
 
   const { pathname } = request.nextUrl;

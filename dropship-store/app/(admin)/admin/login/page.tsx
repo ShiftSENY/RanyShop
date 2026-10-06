@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import Button from "@/components/ui/Button";
 
 export default function AdminLoginPage() {
@@ -15,23 +15,39 @@ export default function AdminLoginPage() {
     setIsLoading(true);
     setError("");
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
 
-    if (result?.error) {
-      setError(
-        result.error === "CredentialsSignin"
-          ? "Invalid email or password"
-          : "Something went wrong. Please try again later."
-      );
+      if (!result || result.error || !result.ok) {
+        setError(
+          result?.error === "CredentialsSignin"
+            ? "Invalid email or password"
+            : "Something went wrong. Please try again later."
+        );
+        setIsLoading(false);
+        return;
+      }
+
+      // Confirm the session cookie was actually saved before leaving.
+      // Without this, a failed sign-in silently navigates and the
+      // route guard bounces straight back to this login page.
+      const session = await getSession();
+      if (session?.user) {
+        // Full page load so the fresh session cookie is present
+        // when the guarded dashboard route is requested.
+        window.location.href = "/admin/dashboard";
+      } else {
+        setError("Login could not be completed. Please try again later.");
+        setIsLoading(false);
+      }
+    } catch (err) {
+      console.error("Admin login failed:", err);
+      setError("Something went wrong. Please try again later.");
       setIsLoading(false);
-    } else {
-      // Full page load so the fresh session cookie is present
-      // when the guarded dashboard route is requested.
-      window.location.href = "/admin/dashboard";
     }
   };
 
