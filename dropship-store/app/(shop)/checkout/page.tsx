@@ -12,11 +12,14 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [policyAccepted, setPolicyAccepted] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [placedOrder, setPlacedOrder] = useState<{
+    orderKey: string;
+    totalAmount: number;
+  } | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     address: "",
-    paymentMethod: "E_WALLET" as "E_WALLET" | "BANK_TRANSFER",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -37,6 +40,7 @@ export default function CheckoutPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
+          paymentMethod: "QR_CODE",
           items: items.map((item) => ({
             productId: item.productId,
             quantity: item.quantity,
@@ -48,8 +52,13 @@ export default function CheckoutPage() {
       });
 
       if (response.ok) {
-        clearCart();
-        router.push("/orders");
+        const order = await response.json();
+        // Keep the cart until the buyer confirms the QR step,
+        // then show the seller's payment QR code.
+        setPlacedOrder({
+          orderKey: order.orderKey,
+          totalAmount: order.totalAmount,
+        });
       } else {
         const errorData = await response.json().catch(() => ({}));
         setErrorMessage(
@@ -65,6 +74,11 @@ export default function CheckoutPage() {
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handleQrDone = () => {
+    clearCart();
+    router.push("/orders");
   };
 
   const inputCls =
@@ -189,50 +203,6 @@ export default function CheckoutPage() {
             </label>
           </div>
 
-          {/* Payment Method */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 sm:p-7 shadow-sm">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
-              Payment Method
-            </h2>
-            <div className="space-y-3">
-              {(["E_WALLET", "BANK_TRANSFER"] as const).map((method) => (
-                <label
-                  key={method}
-                  className={`flex items-center gap-3.5 p-4 border rounded-lg cursor-pointer transition-all ${
-                    formData.paymentMethod === method
-                      ? "border-[#3AB7BA] bg-[#3AB7BA]/5 ring-1 ring-[#3AB7BA]"
-                      : "border-gray-200 hover:border-gray-300 bg-white"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value={method}
-                    checked={formData.paymentMethod === method}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        paymentMethod: e.target.value as
-                          | "E_WALLET"
-                          | "BANK_TRANSFER",
-                      })
-                    }
-                    className="h-4 w-4 text-[#3AB7BA] focus:ring-[#3AB7BA] border-gray-300 cursor-pointer"
-                  />
-                  <div>
-                    <p className="font-semibold text-gray-900 text-sm">
-                      {method === "E_WALLET" ? "E-Wallet" : "Bank Transfer"}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-0.5">
-                      {method === "E_WALLET"
-                        ? "GCash, Maya, PayPal, etc."
-                        : "Direct bank deposit or transfer"}
-                    </p>
-                  </div>
-                </label>
-              ))}
-            </div>
-          </div>
         </div>
 
         {/* Order Summary */}
@@ -293,6 +263,10 @@ export default function CheckoutPage() {
             {isProcessing ? "Processing Order..." : "Complete Order"}
           </Button>
 
+          <p className="text-[11px] text-center mt-2.5 text-gray-500">
+            After completing, the seller&apos;s payment QR code will appear — scan it to pay.
+          </p>
+
           {!policyAccepted && (
             <p className="text-[11px] text-center mt-2.5 text-gray-400">
               Please confirm the formulation integrity policy above to place your order.
@@ -300,6 +274,39 @@ export default function CheckoutPage() {
           )}
         </div>
       </form>
+
+      {/* Seller payment QR modal */}
+      {placedOrder && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Seller payment QR code"
+        >
+          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+          <div className="relative w-full max-w-sm bg-white rounded-xl border border-gray-200 shadow-xl p-6 text-center">
+            <h2 className="text-lg font-bold text-gray-900">
+              Order {placedOrder.orderKey} placed!
+            </h2>
+            <p className="text-sm text-gray-600 mt-1">
+              Scan the seller&apos;s QR code below to pay{" "}
+              <span className="font-semibold text-gray-900 tabular-nums">
+                {formatPrice(placedOrder.totalAmount)}
+              </span>
+            </p>
+            <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
+              <img
+                src="/seller-qr.jpg"
+                alt="Seller payment QR code"
+                className="w-full h-auto object-contain"
+              />
+            </div>
+            <Button onClick={handleQrDone} size="lg" className="w-full mt-5">
+              Done — View My Orders
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
