@@ -83,15 +83,6 @@ function ProductCard({
     router.push("/checkout");
   };
 
-  const discountPercent =
-    product.originalPrice > product.discountPrice
-      ? Math.round(
-          ((product.originalPrice - product.discountPrice) /
-            product.originalPrice) *
-            100
-        )
-      : null;
-
   return (
     <div className="bg-white rounded-lg sm:rounded-xl border border-gray-200 overflow-hidden shadow-2xs hover:shadow-md transition-all duration-200 flex flex-col group">
       {/* ── Image Area ── */}
@@ -113,11 +104,6 @@ function ProductCard({
           </div>
         )}
 
-        {discountPercent !== null && discountPercent > 0 && (
-          <span className="absolute top-2 right-2 inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold bg-rose-500 text-white shadow-2xs">
-            -{discountPercent}%
-          </span>
-        )}
       </button>
 
       {/* ── Card Content ── */}
