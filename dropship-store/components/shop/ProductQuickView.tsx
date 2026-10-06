@@ -121,7 +121,7 @@ export default function ProductQuickView({
                 </span>
               </div>
 
-              <p className="mt-4 text-sm text-gray-600 leading-relaxed">
+              <p className="mt-4 text-sm text-gray-600 leading-relaxed whitespace-pre-line">
                 {product.details}
               </p>
 

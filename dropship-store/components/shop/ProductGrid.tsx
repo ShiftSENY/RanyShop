@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "@/components/ui/Button";
 import { useCartStore } from "@/lib/store";
 import { formatPrice } from "@/lib/utils";
@@ -50,6 +51,7 @@ function ProductCard({
 }) {
   const [quantity, setQuantity] = useState(1);
   const addItem = useCartStore((state) => state.addItem);
+  const router = useRouter();
 
   const handleAddToCart = () => {
     addItem({
@@ -62,6 +64,20 @@ function ProductCard({
       quantity,
     });
     setQuantity(1);
+  };
+
+  const handleBuyNow = () => {
+    addItem({
+      productId: product.id,
+      name: product.name,
+      slug: product.slug,
+      price: product.discountPrice,
+      imageUrl: product.imageUrl,
+      stock: product.stock,
+      quantity,
+    });
+    setQuantity(1);
+    router.push("/checkout");
   };
 
   return (
@@ -141,13 +157,35 @@ function ProductCard({
             </button>
           </div>
 
-          {/* Add to Cart */}
-          <Button
+          {/* Cart icon */}
+          <button
             onClick={handleAddToCart}
+            aria-label={`Add ${product.name} to cart`}
+            title="Add to cart"
+            className="w-7 h-7 flex-shrink-0 flex items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={1.8}
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+              />
+            </svg>
+          </button>
+
+          {/* Buy now */}
+          <Button
+            onClick={handleBuyNow}
             size="sm"
             className="flex-1 text-xs py-1 h-7 min-h-0 font-medium"
           >
-            Add to Cart
+            BUY
           </Button>
         </div>
       </div>
