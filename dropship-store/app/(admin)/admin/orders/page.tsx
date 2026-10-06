@@ -195,7 +195,7 @@ export default function AdminOrdersPage() {
                               {formatPrice(order.totalAmount)}
                             </span>
                             <span className="text-xs text-gray-400 font-medium">
-                              {order.paymentMethod === "QR_CODE" ? "QR Code" : order.paymentMethod === "E_WALLET" ? "E-Wallet" : "Bank Transfer"} (Paid)
+                              {order.paymentMethod === "E_WALLET" ? "E-Wallet" : "Bank Transfer"} (Paid)
                             </span>
                           </div>
 

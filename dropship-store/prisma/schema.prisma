@@ -22,7 +22,6 @@ enum OrderStatus {
 enum PaymentMethod {
   E_WALLET
   BANK_TRANSFER
-  QR_CODE
 }
 
 model User {
