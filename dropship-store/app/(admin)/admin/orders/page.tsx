@@ -26,6 +26,7 @@ interface Order {
 }
 
 const statuses = [
+  "PAYMENT_CONFIRMATION",
   "READY_TO_SHIP",
   "FOR_SHIPPING",
   "TO_BE_DELIVERED",
@@ -212,7 +213,7 @@ export default function AdminOrdersPage() {
                               {formatPrice(order.totalAmount)}
                             </span>
                             <span className="text-xs text-gray-400 font-medium">
-                              {order.paymentMethod === "QR_CODE" ? "QR Code" : order.paymentMethod === "E_WALLET" ? "E-Wallet" : "Bank Transfer"} (Paid)
+                              {order.paymentMethod === "QR_CODE" ? "QR Code" : order.paymentMethod === "E_WALLET" ? "E-Wallet" : "Bank Transfer"} 
                             </span>
                           </div>
 

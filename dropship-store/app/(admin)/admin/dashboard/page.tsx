@@ -5,13 +5,14 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 const STATUS_META: Record<string, { label: string; color: string; bg: string; bar: string }> = {
+  PAYMENT_CONFIRMATION: { label: "Payment Confirmation", color: "text-teal-800", bg: "bg-teal-100", bar: "bg-teal-500" },
   READY_TO_SHIP: { label: "Ready to Ship", color: "text-yellow-800", bg: "bg-yellow-100", bar: "bg-yellow-400" },
   FOR_SHIPPING: { label: "For Shipping", color: "text-blue-800", bg: "bg-blue-100", bar: "bg-blue-500" },
   TO_BE_DELIVERED: { label: "To Be Delivered", color: "text-purple-800", bg: "bg-purple-100", bar: "bg-purple-500" },
   RECEIVED: { label: "Received", color: "text-green-800", bg: "bg-green-100", bar: "bg-green-500" },
 };
 
-const STATUS_ORDER = ["READY_TO_SHIP", "FOR_SHIPPING", "TO_BE_DELIVERED", "RECEIVED"];
+const STATUS_ORDER = ["PAYMENT_CONFIRMATION", "READY_TO_SHIP", "FOR_SHIPPING", "TO_BE_DELIVERED", "RECEIVED"];
 
 function getGreeting(): string {
   const hour = new Date().getHours();
@@ -57,6 +58,7 @@ export default async function DashboardPage() {
       statusCounts[group.status] = group._count.id;
     }
     actionableOrders =
+      (statusCounts["PAYMENT_CONFIRMATION"] || 0) +
       (statusCounts["READY_TO_SHIP"] || 0) +
       (statusCounts["FOR_SHIPPING"] || 0) +
       (statusCounts["TO_BE_DELIVERED"] || 0);
@@ -174,7 +176,7 @@ export default async function DashboardPage() {
             </div>
 
             {/* Legend with counts */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
               {STATUS_ORDER.map((status) => {
                 const count = statusCounts[status] || 0;
                 const meta = STATUS_META[status];

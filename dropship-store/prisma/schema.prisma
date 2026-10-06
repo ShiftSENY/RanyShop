@@ -13,6 +13,7 @@ enum Role {
 }
 
 enum OrderStatus {
+  PAYMENT_CONFIRMATION
   READY_TO_SHIP
   FOR_SHIPPING
   TO_BE_DELIVERED
@@ -75,7 +76,7 @@ model Order {
   shippingAddress String
   paymentMethod   PaymentMethod
   paymentStatus   String        @default("PAID")
-  status          OrderStatus   @default(READY_TO_SHIP)
+  status          OrderStatus   @default(PAYMENT_CONFIRMATION)
   totalQuantity   Int
   totalAmount     Float
   items           OrderItem[]

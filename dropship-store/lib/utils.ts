@@ -47,6 +47,8 @@ export function slugify(text: string): string {
 
 export function getStatusColor(status: string): string {
   switch (status) {
+    case "PAYMENT_CONFIRMATION":
+      return "bg-teal-100 text-teal-800";
     case "READY_TO_SHIP":
       return "bg-yellow-100 text-yellow-800";
     case "FOR_SHIPPING":
@@ -66,6 +68,8 @@ export function getStatusColor(status: string): string {
 
 export function getStatusLabel(status: string): string {
   switch (status) {
+    case "PAYMENT_CONFIRMATION":
+      return "Payment Confirmation";
     case "READY_TO_SHIP":
       return "Ready to Ship";
     case "FOR_SHIPPING":
