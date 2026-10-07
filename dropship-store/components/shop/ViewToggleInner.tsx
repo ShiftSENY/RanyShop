@@ -14,13 +14,13 @@ export default function ViewToggleInner() {
   };
 
   return (
-    <div className="flex items-center gap-1.5 bg-gray-100 p-1 rounded-lg">
+    <div className="flex items-center gap-1.5 bg-[#E5DFD7]/60 p-1 rounded-lg">
       <button
         onClick={() => toggleView("grid")}
         className={`p-2 rounded-md transition-colors cursor-pointer ${
           currentView === "grid"
-            ? "bg-white shadow-xs text-[#1a6f72]"
-            : "text-gray-500 hover:text-gray-900"
+            ? "bg-white shadow-xs text-[#47522D]"
+            : "text-stone-500 hover:text-[#23271A]"
         }`}
         title="Grid View"
         aria-label="Grid View"
@@ -43,8 +43,8 @@ export default function ViewToggleInner() {
         onClick={() => toggleView("list")}
         className={`p-2 rounded-md transition-colors cursor-pointer ${
           currentView === "list"
-            ? "bg-white shadow-xs text-[#1a6f72]"
-            : "text-gray-500 hover:text-gray-900"
+            ? "bg-white shadow-xs text-[#47522D]"
+            : "text-stone-500 hover:text-[#23271A]"
         }`}
         title="List View"
         aria-label="List View"

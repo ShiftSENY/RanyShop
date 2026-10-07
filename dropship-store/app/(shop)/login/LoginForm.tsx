@@ -91,23 +91,23 @@ export default function LoginForm() {
   };
 
   const inputCls =
-    "w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#3AB7BA] focus:border-[#3AB7BA] shadow-2xs";
+    "w-full px-3.5 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] placeholder:text-stone-400 outline-none transition-all focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] shadow-2xs";
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center py-12 px-4 bg-gray-50">
-      <div className="max-w-md w-full bg-white p-8 sm:p-10 rounded-xl border border-gray-200 shadow-sm space-y-7">
+    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center py-12 px-4 bg-[#FAF7F2]">
+      <div className="max-w-md w-full bg-white p-8 sm:p-10 rounded-xl border border-[#E5DFD7] shadow-sm space-y-7">
         {/* Logo */}
         <div className="text-center">
           <Link href="/" className="inline-flex flex-col items-center group">
-            <img src="/RanyShop_LOGO.svg" alt="RanyShop" className="h-12 w-auto object-contain transition-transform group-hover:scale-105" />
-            <span className="text-xl font-bold mt-2 text-gray-900 tracking-tight">
+            <img src="/RanyShop_b-g_LOGO.png" alt="RanyShop" className="h-12 w-auto object-contain transition-transform group-hover:scale-105 rounded-md" />
+            <span className="text-xl font-bold mt-2 text-[#23271A] tracking-tight">
               RanyShop
             </span>
           </Link>
-          <h1 className="mt-3 text-xl font-bold tracking-tight text-gray-900">
+          <h1 className="mt-3 text-xl font-bold tracking-tight text-[#23271A]">
             {isRegister ? "Create your account" : "Welcome back"}
           </h1>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-stone-500 mt-1">
             {isRegister ? "Join to easily track orders and faster checkout." : "Sign in to access your orders and account."}
           </p>
         </div>
@@ -123,7 +123,7 @@ export default function LoginForm() {
           <button
             onClick={() => handleSocialLogin("google")}
             disabled={socialLoading !== null}
-            className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 cursor-pointer shadow-2xs"
+            className="w-full flex items-center justify-center gap-3 px-4 py-2.5 border border-[#E5DFD7] rounded-lg text-sm font-medium text-stone-700 hover:bg-[#FAF7F2] transition-colors disabled:opacity-50 cursor-pointer shadow-2xs"
           >
             <svg className="w-4.5 h-4.5" viewBox="0 0 24 24">
               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
@@ -149,10 +149,10 @@ export default function LoginForm() {
           {/* Divider */}
           <div className="relative my-5">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200" />
+              <div className="w-full border-t border-[#E5DFD7]" />
             </div>
             <div className="relative flex justify-center text-xs">
-              <span className="px-3 bg-white text-gray-500 font-medium">
+              <span className="px-3 bg-white text-stone-500 font-medium">
                 Or with email
               </span>
             </div>
@@ -162,7 +162,7 @@ export default function LoginForm() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {isRegister && (
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1">
+                <label className="block text-xs font-semibold text-[#2D3319] mb-1">
                   Full Name
                 </label>
                 <input
@@ -175,7 +175,7 @@ export default function LoginForm() {
               </div>
             )}
             <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">
+              <label className="block text-xs font-semibold text-[#2D3319] mb-1">
                 Email Address
               </label>
               <input
@@ -188,7 +188,7 @@ export default function LoginForm() {
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-gray-700 mb-1">
+              <label className="block text-xs font-semibold text-[#2D3319] mb-1">
                 Password
               </label>
               <input
@@ -218,13 +218,13 @@ export default function LoginForm() {
           </form>
         </div>
 
-        <p className="text-center text-xs text-gray-500 pt-2 border-t border-gray-100">
+        <p className="text-center text-xs text-stone-500 pt-2 border-t border-[#E5DFD7]/60">
           {isRegister ? (
             <>
               Already have an account?{" "}
               <Link
                 href="/login"
-                className="font-semibold text-[#1a6f72] hover:text-[#135052] transition-colors"
+                className="font-semibold text-[#B35E2B] hover:text-[#984E22] transition-colors"
               >
                 Sign in
               </Link>
@@ -234,7 +234,7 @@ export default function LoginForm() {
               Don&apos;t have an account?{" "}
               <Link
                 href="/login?register=true"
-                className="font-semibold text-[#1a6f72] hover:text-[#135052] transition-colors"
+                className="font-semibold text-[#B35E2B] hover:text-[#984E22] transition-colors"
               >
                 Register here
               </Link>

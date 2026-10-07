@@ -22,18 +22,18 @@ export default function AdminHeader() {
           <div className="flex items-center gap-8">
             <Link
               href="/admin/dashboard"
-              className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 rounded-lg py-1 transition-opacity"
+              className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#B35E2B] rounded-lg py-1 transition-opacity"
             >
               <img
-                src="/RanyShop_LOGO.svg"
+                src="/RanyShop_b-g_LOGO.png"
                 alt="RanyShop"
-                className="h-8 w-auto object-contain transition-transform group-hover:scale-105"
+                className="h-8 w-auto object-contain transition-transform group-hover:scale-105 rounded-md"
               />
               <div className="flex items-center gap-2">
                 <span className="text-xl font-bold tracking-tight text-white">
                   RanyShop
                 </span>
-                <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                <span className="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-md bg-[#B35E2B]/20 text-amber-300 border border-[#B35E2B]/30">
                   Admin
                 </span>
               </div>

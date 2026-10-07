@@ -32,19 +32,19 @@ export default function ShopLayout({
   };
 
   return (
-    <div className="min-h-full flex flex-col bg-gray-50">
+    <div className="min-h-full flex flex-col bg-[#FAF7F2]">
       {/* ── Header ───────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-2xs">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-[#E5DFD7] shadow-2xs">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-2">
             {/* Brand */}
             <Link href="/" className="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0 min-w-0">
               <img
-                src="/RanyShop_LOGO.svg"
+                src="/RanyShop_b-g_LOGO.png"
                 alt="RanyShop"
-                className="h-7 sm:h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-105 flex-shrink-0"
+                className="h-8 sm:h-9 w-auto object-contain transition-transform duration-200 group-hover:scale-105 flex-shrink-0 rounded-md"
               />
-              <span className="text-lg sm:text-xl font-bold tracking-tight text-gray-900 group-hover:text-[#1a6f72] transition-colors whitespace-nowrap">
+              <span className="text-lg sm:text-xl font-bold tracking-tight text-[#23271A] group-hover:text-[#47522D] transition-colors whitespace-nowrap">
                 RanyShop
               </span>
             </Link>
@@ -53,13 +53,13 @@ export default function ShopLayout({
             <nav className="hidden md:flex items-center gap-6">
               <Link
                 href="/"
-                className="text-sm font-medium text-gray-600 hover:text-[#1a6f72] transition-colors"
+                className="text-sm font-medium text-stone-600 hover:text-[#47522D] transition-colors"
               >
                 Products
               </Link>
               <Link
                 href="/orders"
-                className="text-sm font-medium text-gray-600 hover:text-[#1a6f72] transition-colors"
+                className="text-sm font-medium text-stone-600 hover:text-[#47522D] transition-colors"
               >
                 My Orders
               </Link>
@@ -70,7 +70,7 @@ export default function ShopLayout({
               {/* Mobile "My Orders" icon link */}
               <Link
                 href="/orders"
-                className="md:hidden p-2 text-gray-600 hover:text-[#1a6f72] hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+                className="md:hidden p-2 text-stone-600 hover:text-[#47522D] hover:bg-[#FAF7F2] rounded-lg transition-colors cursor-pointer"
                 aria-label="My Orders"
                 title="My Orders"
               >
@@ -93,7 +93,7 @@ export default function ShopLayout({
               <button
                 type="button"
                 onClick={() => setIsCartOpen(true)}
-                className="relative p-2 text-gray-600 hover:text-[#1a6f72] transition-colors cursor-pointer rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#3AB7BA]"
+                className="relative p-2 text-stone-600 hover:text-[#47522D] transition-colors cursor-pointer rounded-lg hover:bg-[#FAF7F2] focus:outline-none focus:ring-2 focus:ring-[#B35E2B]"
                 aria-label="Shopping Cart"
               >
                 <svg
@@ -110,27 +110,27 @@ export default function ShopLayout({
                   />
                 </svg>
                 {totalItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 text-white text-[10px] sm:text-[11px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center bg-[#3AB7BA] tabular-nums shadow-2xs">
+                  <span className="absolute -top-0.5 -right-0.5 text-white text-[10px] sm:text-[11px] font-bold w-4.5 h-4.5 rounded-full flex items-center justify-center bg-[#B35E2B] tabular-nums shadow-2xs">
                     {totalItems}
                   </span>
                 )}
               </button>
 
-              <div className="h-4 w-px bg-gray-200 mx-0.5 sm:mx-1" aria-hidden="true" />
+              <div className="h-4 w-px bg-[#E5DFD7] mx-0.5 sm:mx-1" aria-hidden="true" />
 
               {/* User State */}
               {user ? (
                 <div className="flex items-center gap-1 sm:gap-2">
-                  <div className="hidden sm:flex items-center text-xs text-gray-500 font-normal">
+                  <div className="hidden sm:flex items-center text-xs text-stone-500 font-normal">
                     <span className="hidden lg:inline mr-1">Logged in as</span>
-                    <span className="font-semibold text-gray-800 max-w-[100px] md:max-w-[140px] truncate" title={user.name || user.email || ""}>
+                    <span className="font-semibold text-stone-800 max-w-[100px] md:max-w-[140px] truncate" title={user.name || user.email || ""}>
                       {firstName}
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={handleLogout}
-                    className="text-xs sm:text-sm font-medium text-gray-700 hover:text-[#1a6f72] hover:bg-gray-100 transition-colors px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg cursor-pointer"
+                    className="text-xs sm:text-sm font-medium text-stone-700 hover:text-[#47522D] hover:bg-[#FAF7F2] transition-colors px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg cursor-pointer"
                   >
                     Logout
                   </button>
@@ -138,7 +138,7 @@ export default function ShopLayout({
               ) : (
                 <Link
                   href="/login"
-                  className="text-xs sm:text-sm font-medium text-gray-700 hover:text-[#1a6f72] hover:bg-gray-100 transition-colors px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg"
+                  className="text-xs sm:text-sm font-medium text-stone-700 hover:text-[#47522D] hover:bg-[#FAF7F2] transition-colors px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg"
                 >
                   Login
                 </Link>
@@ -151,9 +151,9 @@ export default function ShopLayout({
       <main className="flex-1">{children}</main>
 
       {/* ── Footer ───────────────────────────────────────────── */}
-      <footer className="py-7 mt-auto border-t border-gray-800 bg-gray-900 text-gray-400">
+      <footer className="py-7 mt-auto border-t border-[#2D3319] bg-[#1C2114] text-stone-300">
         <div className="max-w-7xl mx-auto px-4 text-center text-xs font-normal tracking-wide">
-          © 2026 RanyShop.
+          © 2026 RanyShop. All rights reserved.
         </div>
       </footer>
 

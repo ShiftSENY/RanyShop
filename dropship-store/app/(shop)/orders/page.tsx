@@ -44,12 +44,12 @@ export default async function OrdersPage() {
       </div>
 
       {orders.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-lg border border-gray-200 max-w-md mx-auto p-8 shadow-sm">
+        <div className="text-center py-16 bg-white rounded-lg border border-[#E5DFD7] max-w-md mx-auto p-8 shadow-sm">
           <span className="text-4xl mb-3 block">📦</span>
-          <p className="text-lg font-bold text-gray-900 mb-1">
+          <p className="text-lg font-bold text-[#23271A] mb-1">
             No orders placed yet
           </p>
-          <p className="text-sm text-gray-500 mb-6">
+          <p className="text-sm text-stone-500 mb-6">
             When you place an order, you can track its progress here.
           </p>
           <Link href="/">
@@ -61,15 +61,15 @@ export default async function OrdersPage() {
           {orders.map((order: any) => (
             <div
               key={order.id}
-              className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm"
+              className="bg-white rounded-lg border border-[#E5DFD7] p-6 shadow-sm"
             >
               {/* Order header */}
-              <div className="flex flex-wrap items-start justify-between gap-4 mb-5 pb-4 border-b border-gray-100">
+              <div className="flex flex-wrap items-start justify-between gap-4 mb-5 pb-4 border-b border-[#E5DFD7]/60">
                 <div>
-                  <h3 className="font-bold text-gray-900 text-base">
-                    Order <span className="font-mono text-[#1a6f72]">{order.orderKey}</span>
+                  <h3 className="font-bold text-[#23271A] text-base">
+                    Order <span className="font-mono text-[#47522D]">{order.orderKey}</span>
                   </h3>
-                  <p className="text-xs text-gray-500 mt-0.5 tabular-nums">
+                  <p className="text-xs text-stone-500 mt-0.5 tabular-nums">
                     Placed on {new Date(order.createdAt).toLocaleDateString("en-PH", {
                       year: "numeric",
                       month: "long",
@@ -84,16 +84,16 @@ export default async function OrdersPage() {
 
               {/* Items */}
               <div className="space-y-2.5">
-                <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                <h4 className="text-xs font-semibold uppercase tracking-wider text-stone-400">
                   Ordered Items ({order.items.length})
                 </h4>
-                <div className="divide-y divide-gray-100">
+                <div className="divide-y divide-[#E5DFD7]/50">
                   {order.items.map((item: any) => (
                     <div key={item.id} className="py-2.5 flex justify-between items-center text-sm">
-                      <span className="text-gray-700 font-medium">
-                        {item.product.name} <span className="text-gray-400 text-xs font-normal">× {item.quantity}</span>
+                      <span className="text-stone-700 font-medium">
+                        {item.product.name} <span className="text-stone-400 text-xs font-normal">× {item.quantity}</span>
                       </span>
-                      <span className="font-semibold text-gray-900 tabular-nums">
+                      <span className="font-semibold text-[#23271A] tabular-nums">
                         {formatPrice(item.price * item.quantity)}
                       </span>
                     </div>
@@ -102,11 +102,11 @@ export default async function OrdersPage() {
               </div>
 
               {/* Footer */}
-              <div className="border-t border-gray-100 mt-5 pt-4 flex flex-wrap justify-between items-center gap-4 bg-gray-50/70 -mx-6 -mb-6 px-6 py-4 rounded-b-lg">
-                <div className="text-xs text-gray-500 space-y-0.5">
+              <div className="border-t border-[#E5DFD7]/60 mt-5 pt-4 flex flex-wrap justify-between items-center gap-4 bg-[#FAF7F2]/80 -mx-6 -mb-6 px-6 py-4 rounded-b-lg">
+                <div className="text-xs text-stone-500 space-y-0.5">
                   <p>
                     Payment Method:{" "}
-                    <span className="font-semibold text-gray-800">
+                    <span className="font-semibold text-[#23271A]">
                       {order.paymentMethod === "QR_CODE"
                         ? "QR Code"
                         : order.paymentMethod === "E_WALLET"
@@ -116,16 +116,16 @@ export default async function OrdersPage() {
                   </p>
                   <p>
                     Total Items:{" "}
-                    <span className="font-semibold text-gray-800 tabular-nums">
+                    <span className="font-semibold text-[#23271A] tabular-nums">
                       {order.totalQuantity}
                     </span>
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-stone-500">
                     Total Amount
                   </p>
-                  <p className="text-lg font-extrabold text-emerald-600 tabular-nums">
+                  <p className="text-lg font-extrabold text-emerald-700 tabular-nums">
                     {formatPrice(order.totalAmount)}
                   </p>
                 </div>

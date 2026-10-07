@@ -54,14 +54,9 @@ export default function HomePageClient({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+          <h1 className="text-2xl font-bold tracking-tight text-[#23271A]">
             Wellness and Skincare
           </h1>
-          {/* 
-          <p className="text-sm text-gray-500 mt-1">
-            Curated daily formulations for radiant, balanced nourishment.
-          </p>
-          */}
         </div>
         <ViewToggle />
       </div>
@@ -71,7 +66,7 @@ export default function HomePageClient({
         <div className="flex flex-col sm:flex-row items-stretch gap-3">
           {/* Search Input Field */}
           <div className="relative flex-1">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
               <svg
                 className="w-4 h-4"
                 fill="none"
@@ -91,13 +86,13 @@ export default function HomePageClient({
               placeholder="Search products by name or details..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#3AB7BA] focus:border-[#3AB7BA] transition-all"
+              className="w-full pl-10 pr-10 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] placeholder:text-stone-400 shadow-2xs focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] transition-all"
             />
             {search && (
               <button
                 type="button"
                 onClick={() => setSearch("")}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors cursor-pointer"
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-stone-400 hover:text-stone-600 transition-colors cursor-pointer"
                 title="Clear search"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,7 +104,7 @@ export default function HomePageClient({
 
           {/* Category Dropdown Option */}
           <div className="relative sm:w-64">
-            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-stone-400">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
               </svg>
@@ -118,7 +113,7 @@ export default function HomePageClient({
               aria-label="Filter by category"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="w-full pl-9.5 pr-10 py-2.5 bg-white border border-gray-200 rounded-lg text-sm text-gray-800 font-medium shadow-2xs appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#3AB7BA] focus:border-[#3AB7BA] transition-all"
+              className="w-full pl-9.5 pr-10 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#2D3319] font-medium shadow-2xs appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] transition-all"
             >
               <option value="">All Categories ({initialProducts.length})</option>
               {initialCategories.map((cat) => {
@@ -130,7 +125,7 @@ export default function HomePageClient({
                 );
               })}
             </select>
-            <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-gray-400">
+            <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-stone-400">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
@@ -140,14 +135,14 @@ export default function HomePageClient({
 
         {/* Active Filter Bar & Results Feedback */}
         {(search || selectedCategory) && (
-          <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-gray-700">
-            <span className="font-medium text-gray-500">Filtered by:</span>
+          <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-stone-700">
+            <span className="font-medium text-stone-500">Filtered by:</span>
             {search && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#3AB7BA]/10 border border-[#3AB7BA]/25 text-[#1a6f72] font-medium">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#565E37]/10 border border-[#565E37]/25 text-[#353E20] font-medium">
                 Keyword: &ldquo;{search}&rdquo;
                 <button
                   onClick={() => setSearch("")}
-                  className="hover:text-[#135052] transition-colors cursor-pointer"
+                  className="hover:text-[#B35E2B] transition-colors cursor-pointer"
                   aria-label="Remove search filter"
                 >
                   ×
@@ -155,11 +150,11 @@ export default function HomePageClient({
               </span>
             )}
             {selectedCategory && (
-              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#3AB7BA]/10 border border-[#3AB7BA]/25 text-[#1a6f72] font-medium">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#565E37]/10 border border-[#565E37]/25 text-[#353E20] font-medium">
                 Category: {initialCategories.find((c) => c.id === selectedCategory)?.name}
                 <button
                   onClick={() => setSelectedCategory("")}
-                  className="hover:text-[#135052] transition-colors cursor-pointer"
+                  className="hover:text-[#B35E2B] transition-colors cursor-pointer"
                   aria-label="Remove category filter"
                 >
                   ×
@@ -171,11 +166,11 @@ export default function HomePageClient({
                 setSearch("");
                 setSelectedCategory("");
               }}
-              className="text-gray-500 hover:text-gray-900 underline ml-1 cursor-pointer text-xs"
+              className="text-stone-500 hover:text-[#23271A] underline ml-1 cursor-pointer text-xs"
             >
               Reset all
             </button>
-            <span className="ml-auto text-gray-500 font-normal tabular-nums">
+            <span className="ml-auto text-stone-500 font-normal tabular-nums">
               Showing {filteredProducts.length} of {initialProducts.length} products
             </span>
           </div>

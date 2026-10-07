@@ -82,16 +82,16 @@ export default function CheckoutPage() {
   };
 
   const inputCls =
-    "w-full px-3.5 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder:text-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#3AB7BA] focus:border-[#3AB7BA] shadow-2xs";
+    "w-full px-3.5 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] placeholder:text-stone-400 outline-none transition-all focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] shadow-2xs";
 
   if (items.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center max-w-md mx-auto bg-white p-8 rounded-lg border border-gray-200 shadow-sm">
-          <h1 className="text-2xl font-bold mb-3 text-gray-900 tracking-tight">
+        <div className="text-center max-w-md mx-auto bg-white p-8 rounded-lg border border-[#E5DFD7] shadow-sm">
+          <h1 className="text-2xl font-bold mb-3 text-[#23271A] tracking-tight">
             Your Cart is Empty
           </h1>
-          <p className="text-sm text-gray-500 mb-6">
+          <p className="text-sm text-stone-500 mb-6">
             Add items to your cart before proceeding to checkout.
           </p>
           <Button onClick={() => router.push("/")} className="w-full">
@@ -104,7 +104,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-2xl font-bold mb-8 text-gray-900 tracking-tight">
+      <h1 className="text-2xl font-bold mb-8 text-[#23271A] tracking-tight">
         Checkout
       </h1>
 
@@ -114,13 +114,13 @@ export default function CheckoutPage() {
       >
         <div className="lg:col-span-2 space-y-6">
           {/* Shipping Details */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 sm:p-7 shadow-sm">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg border border-[#E5DFD7] p-6 sm:p-7 shadow-sm">
+            <h2 className="text-lg font-bold text-[#23271A] mb-4">
               Shipping Details
             </h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-sm font-semibold text-[#2D3319] mb-1.5">
                   Full Name
                 </label>
                 <input
@@ -133,7 +133,7 @@ export default function CheckoutPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-sm font-semibold text-[#2D3319] mb-1.5">
                   Phone Number
                 </label>
                 <input
@@ -146,7 +146,7 @@ export default function CheckoutPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                <label className="block text-sm font-semibold text-[#2D3319] mb-1.5">
                   Delivery Address
                 </label>
                 <textarea
@@ -162,10 +162,10 @@ export default function CheckoutPage() {
           </div>
 
           {/* Policy confirmation */}
-          <div className="rounded-lg border border-[#3AB7BA]/30 bg-[#3AB7BA]/5 p-6 sm:p-7">
+          <div className="rounded-lg border border-[#B35E2B]/30 bg-[#FAF7F2] p-6 sm:p-7">
             <div className="flex items-center gap-2.5 mb-2.5">
               <svg
-                className="w-5 h-5 flex-shrink-0 text-[#1a6f72]"
+                className="w-5 h-5 flex-shrink-0 text-[#B35E2B]"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth={2}
@@ -177,11 +177,11 @@ export default function CheckoutPage() {
                   d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
                 />
               </svg>
-              <h3 className="text-base font-bold text-gray-900">
+              <h3 className="text-base font-bold text-[#23271A]">
                 Formulation Integrity &amp; Final-Sale Policy
               </h3>
             </div>
-            <p className="text-sm text-gray-700 mb-4 leading-relaxed">
+            <p className="text-sm text-stone-700 mb-4 leading-relaxed">
               To guarantee the highest standards of botanical purity, potency, and hygiene,
               each formulation is freshly inspected, prepared, and sealed upon confirmation.
               Once processed, orders cannot be cancelled or returned (unless delivery fails).
@@ -195,32 +195,32 @@ export default function CheckoutPage() {
                   setPolicyAccepted(e.target.checked);
                   if (e.target.checked) setErrorMessage(null);
                 }}
-                className="mt-0.5 h-4 w-4 rounded text-[#3AB7BA] focus:ring-[#3AB7BA] border-gray-300 cursor-pointer"
+                className="mt-0.5 h-4 w-4 rounded text-[#B35E2B] focus:ring-[#B35E2B] border-[#E5DFD7] cursor-pointer"
               />
-              <span className="text-sm font-semibold text-gray-900">
+              <span className="text-sm font-semibold text-[#23271A]">
                 I understand and accept the formulation integrity and final-sale terms.
               </span>
             </label>
           </div>
 
           {/* Payment Method */}
-          <div className="bg-white rounded-lg border border-gray-200 p-6 sm:p-7 shadow-sm">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+          <div className="bg-white rounded-lg border border-[#E5DFD7] p-6 sm:p-7 shadow-sm">
+            <h2 className="text-lg font-bold text-[#23271A] mb-4">
               Payment Method
             </h2>
             <div className="space-y-3">
-              <div className="flex items-center gap-3.5 p-4 border border-[#3AB7BA] bg-[#3AB7BA]/5 rounded-lg ring-1 ring-[#3AB7BA] select-none">
+              <div className="flex items-center gap-3.5 p-4 border border-[#B35E2B] bg-[#FAF7F2] rounded-lg ring-1 ring-[#B35E2B] select-none">
                 <input
                   type="radio"
                   checked
                   disabled
-                  className="h-4 w-4 text-[#3AB7BA] focus:ring-[#3AB7BA] border-gray-300 cursor-default"
+                  className="h-4 w-4 text-[#B35E2B] focus:ring-[#B35E2B] border-[#E5DFD7] cursor-default"
                 />
                 <div className="flex-1">
-                  <p className="font-semibold text-gray-900 text-sm">
+                  <p className="font-semibold text-[#23271A] text-sm">
                     QR Code
                   </p>
-                  <p className="text-xs text-gray-500 mt-0.5">
+                  <p className="text-xs text-stone-500 mt-0.5">
                     Scan the seller&apos;s QR code to pay after checkout
                   </p>
                 </div>
@@ -237,22 +237,22 @@ export default function CheckoutPage() {
                 <div
                   key={option.method}
                   aria-disabled="true"
-                  className="flex items-center gap-3.5 p-4 border border-gray-200 rounded-lg bg-gray-50 cursor-not-allowed select-none"
+                  className="flex items-center gap-3.5 p-4 border border-[#E5DFD7] rounded-lg bg-[#FAF7F2]/50 cursor-not-allowed select-none"
                 >
                   <input
                     type="radio"
                     disabled
-                    className="h-4 w-4 text-gray-300 border-gray-300 cursor-not-allowed"
+                    className="h-4 w-4 text-stone-300 border-[#E5DFD7] cursor-not-allowed"
                   />
                   <div className="flex-1">
-                    <p className="font-semibold text-gray-500 text-sm">
+                    <p className="font-semibold text-stone-500 text-sm">
                       {option.method}
                     </p>
-                    <p className="text-xs text-gray-400 mt-0.5">
+                    <p className="text-xs text-stone-400 mt-0.5">
                       {option.desc}
                     </p>
                   </div>
-                  <span className="text-[11px] font-bold uppercase tracking-wide text-amber-700 bg-amber-100 border border-amber-200 rounded-full px-2.5 py-1 whitespace-nowrap">
+                  <span className="text-[11px] font-bold uppercase tracking-wide text-amber-800 bg-amber-100 border border-amber-200 rounded-full px-2.5 py-1 whitespace-nowrap">
                     Coming soon
                   </span>
                 </div>
@@ -262,34 +262,34 @@ export default function CheckoutPage() {
         </div>
 
         {/* Order Summary */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6 h-fit shadow-sm">
-          <h2 className="text-lg font-bold mb-4 text-gray-900">
+        <div className="bg-white rounded-lg border border-[#E5DFD7] p-6 h-fit shadow-sm">
+          <h2 className="text-lg font-bold mb-4 text-[#23271A]">
             Order Summary
           </h2>
           <div className="space-y-3 mb-4">
             {items.map((item) => (
               <div key={item.productId} className="flex justify-between text-sm">
-                <span className="text-gray-600 truncate max-w-[160px]">
-                  {item.name} <span className="text-gray-400">× {item.quantity}</span>
+                <span className="text-stone-600 truncate max-w-[160px]">
+                  {item.name} <span className="text-stone-400">× {item.quantity}</span>
                 </span>
-                <span className="font-semibold text-gray-900 tabular-nums">
+                <span className="font-semibold text-[#23271A] tabular-nums">
                   {formatPrice(item.price * item.quantity)}
                 </span>
               </div>
             ))}
           </div>
-          <div className="border-t border-gray-100 pt-3.5 space-y-2">
+          <div className="border-t border-[#E5DFD7]/60 pt-3.5 space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Subtotal</span>
-              <span className="font-semibold text-gray-900 tabular-nums">{formatPrice(getTotal())}</span>
+              <span className="text-stone-500">Subtotal</span>
+              <span className="font-semibold text-[#23271A] tabular-nums">{formatPrice(getTotal())}</span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Shipping</span>
-              <span className="font-semibold text-emerald-600">Free</span>
+              <span className="text-stone-500">Shipping</span>
+              <span className="font-semibold text-emerald-700">Free</span>
             </div>
-            <div className="flex justify-between font-bold text-lg text-gray-900 pt-2 border-t border-gray-100">
+            <div className="flex justify-between font-bold text-lg text-[#23271A] pt-2 border-t border-[#E5DFD7]/60">
               <span>Total</span>
-              <span className="text-emerald-600 tabular-nums">{formatPrice(getTotal())}</span>
+              <span className="text-emerald-700 tabular-nums">{formatPrice(getTotal())}</span>
             </div>
           </div>
 
@@ -319,12 +319,12 @@ export default function CheckoutPage() {
             {isProcessing ? "Processing Order..." : "Complete Order"}
           </Button>
 
-          <p className="text-[11px] text-center mt-2.5 text-gray-500">
+          <p className="text-[11px] text-center mt-2.5 text-stone-500">
             After completing, the seller&apos;s payment QR code will appear — scan it to pay.
           </p>
 
           {!policyAccepted && (
-            <p className="text-[11px] text-center mt-2.5 text-gray-400">
+            <p className="text-[11px] text-center mt-2.5 text-stone-400">
               Please confirm the formulation integrity policy above to place your order.
             </p>
           )}
@@ -339,18 +339,18 @@ export default function CheckoutPage() {
           aria-modal="true"
           aria-label="Seller payment QR code"
         >
-          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
-          <div className="relative w-full max-w-sm bg-white rounded-xl border border-gray-200 shadow-xl p-6 text-center max-h-[90vh] overflow-y-auto">
-            <h2 className="text-lg font-bold text-gray-900">
+          <div className="absolute inset-0 bg-stone-900/60 backdrop-blur-xs" aria-hidden="true" />
+          <div className="relative w-full max-w-sm bg-white rounded-xl border border-[#E5DFD7] shadow-xl p-6 text-center max-h-[90vh] overflow-y-auto">
+            <h2 className="text-lg font-bold text-[#23271A]">
               Order {placedOrder.orderKey} placed!
             </h2>
-            <p className="text-sm text-gray-600 mt-1">
+            <p className="text-sm text-stone-600 mt-1">
               Scan the seller&apos;s QR code below to pay{" "}
-              <span className="font-semibold text-gray-900 tabular-nums">
+              <span className="font-semibold text-[#23271A] tabular-nums">
                 {formatPrice(placedOrder.totalAmount)}
               </span>
             </p>
-            <div className="mt-4 border border-gray-200 rounded-lg overflow-hidden">
+            <div className="mt-4 border border-[#E5DFD7] rounded-lg overflow-hidden">
               <img
                 src="/seller-qr.jpg"
                 alt="Seller payment QR code"

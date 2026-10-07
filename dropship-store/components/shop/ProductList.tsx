@@ -81,14 +81,14 @@ function ProductRow({
   };
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between shadow-sm hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-lg border border-[#E5DFD7] p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between shadow-sm hover:shadow-md transition-shadow">
       {/* Thumbnail + info */}
       <div className="flex gap-4 items-center flex-1 min-w-0">
         <button
           type="button"
           onClick={onQuickView}
           aria-label={`View details for ${product.name}`}
-          className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 border border-gray-200 overflow-hidden group cursor-pointer bg-gray-50"
+          className="w-20 h-20 rounded-lg flex items-center justify-center flex-shrink-0 border border-[#E5DFD7] overflow-hidden group cursor-pointer bg-[#FAF7F2]"
         >
           {product.imageUrl ? (
             <img
@@ -102,7 +102,7 @@ function ProductRow({
         </button>
 
         <div className="flex-1 min-w-0">
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-[#3AB7BA]/10 text-[#1a6f72]">
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-[#565E37]/10 text-[#47522D] border border-[#565E37]/20">
             {product.category.name}
           </span>
           <button
@@ -110,18 +110,18 @@ function ProductRow({
             onClick={onQuickView}
             className="block mt-1 text-left w-full cursor-pointer group"
           >
-            <h3 className="font-semibold text-gray-900 truncate group-hover:text-[#1a6f72] transition-colors text-base">
+            <h3 className="font-semibold text-[#23271A] truncate group-hover:text-[#47522D] transition-colors text-base">
               {product.name}
             </h3>
           </button>
-          <p className="text-xs text-gray-500 line-clamp-1 leading-relaxed mt-0.5">
+          <p className="text-xs text-stone-500 line-clamp-1 leading-relaxed mt-0.5">
             {product.details}
           </p>
           <div className="mt-1.5 flex items-baseline gap-2">
-            <span className="text-xs text-gray-400 line-through tabular-nums font-normal">
+            <span className="text-xs text-stone-400 line-through tabular-nums font-normal">
               {formatPrice(product.originalPrice)}
             </span>
-            <span className="text-sm font-bold text-emerald-600 tabular-nums">
+            <span className="text-sm font-bold text-emerald-700 tabular-nums">
               {formatPrice(product.discountPrice)}
             </span>
           </div>
@@ -130,21 +130,21 @@ function ProductRow({
 
       {/* Qty + CTA */}
       <div className="flex items-center gap-2.5 self-end sm:self-auto w-full sm:w-auto justify-end">
-        <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50/50">
+        <div className="flex items-center border border-[#E5DFD7] rounded-lg overflow-hidden bg-[#FAF7F2]/60">
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
             aria-label="Decrease quantity"
-            className="px-2.5 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
+            className="px-2.5 py-1 text-sm font-semibold text-stone-700 hover:bg-[#E5DFD7]/70 hover:text-[#23271A] transition-colors cursor-pointer"
           >
             −
           </button>
-          <span className="px-2.5 py-1 text-xs font-semibold min-w-6 text-center text-gray-900 tabular-nums">
+          <span className="px-2.5 py-1 text-xs font-semibold min-w-6 text-center text-[#23271A] tabular-nums">
             {quantity}
           </span>
           <button
             onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
             aria-label="Increase quantity"
-            className="px-2.5 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
+            className="px-2.5 py-1 text-sm font-semibold text-stone-700 hover:bg-[#E5DFD7]/70 hover:text-[#23271A] transition-colors cursor-pointer"
           >
             +
           </button>
@@ -153,7 +153,7 @@ function ProductRow({
           onClick={handleAddToCart}
           aria-label={`Add ${product.name} to cart`}
           title="Add to cart"
-          className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg border border-gray-200 text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
+          className="w-8 h-8 flex-shrink-0 flex items-center justify-center rounded-lg border border-[#E5DFD7] text-stone-700 hover:bg-[#FAF7F2] hover:text-[#23271A] transition-colors cursor-pointer shadow-2xs"
         >
           <svg
             className="w-4 h-4"

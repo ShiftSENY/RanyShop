@@ -37,24 +37,24 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
   return (
     <div className="mt-8 space-y-4">
       <div className="flex items-center gap-4">
-        <label className="text-sm font-semibold text-gray-700">
+        <label className="text-sm font-semibold text-[#2D3319]">
           Quantity:
         </label>
-        <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50/50">
+        <div className="flex items-center border border-[#E5DFD7] rounded-lg overflow-hidden bg-[#FAF7F2]/60">
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
             aria-label="Decrease quantity"
-            className="px-4 py-2 text-base font-semibold text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
+            className="px-4 py-2 text-base font-semibold text-stone-700 hover:bg-[#E5DFD7]/70 hover:text-[#23271A] transition-colors cursor-pointer"
           >
             −
           </button>
-          <span className="px-4 py-2 text-sm font-semibold min-w-8 text-center text-gray-900 tabular-nums">
+          <span className="px-4 py-2 text-sm font-semibold min-w-8 text-center text-[#23271A] tabular-nums">
             {quantity}
           </span>
           <button
             onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
             aria-label="Increase quantity"
-            className="px-4 py-2 text-base font-semibold text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer"
+            className="px-4 py-2 text-base font-semibold text-stone-700 hover:bg-[#E5DFD7]/70 hover:text-[#23271A] transition-colors cursor-pointer"
           >
             +
           </button>
