@@ -52,37 +52,41 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-[#1C2114] py-12 px-4">
+      <div className="max-w-md w-full space-y-8 bg-[#23271A] p-8 rounded-2xl border border-[#2D3319] shadow-xl">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-white">RanyShop Admin</h1>
-          <h2 className="mt-2 text-xl text-gray-400">
-            Sign in to admin dashboard
+          <div className="w-12 h-12 rounded-xl bg-[#B35E2B]/20 text-[#B35E2B] flex items-center justify-center mx-auto mb-3 border border-[#B35E2B]/30 font-bold text-xl">
+            R
+          </div>
+          <h1 className="text-2xl font-bold text-[#FAF7F2] tracking-tight">RanyShop Admin</h1>
+          <h2 className="mt-1.5 text-sm text-[#D8D2C5]">
+            Sign in to manage your storefront
           </h2>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           {error && (
-            <div className="bg-red-900/50 text-red-300 p-3 rounded-lg text-sm">
+            <div className="bg-red-950/80 border border-red-800 text-red-200 p-3.5 rounded-xl text-sm font-medium">
               {error}
             </div>
           )}
 
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
-                Email
+              <label className="block text-sm font-semibold text-[#FAF7F2] mb-1.5">
+                Email Address
               </label>
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="admin@ranyshop.com"
+                className="w-full px-3.5 py-2.5 bg-[#1C2114] border border-[#2D3319] rounded-xl text-[#FAF7F2] placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] text-sm transition-all"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">
+              <label className="block text-sm font-semibold text-[#FAF7F2] mb-1.5">
                 Password
               </label>
               <input
@@ -90,19 +94,19 @@ export default function AdminLoginPage() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="••••••••"
+                className="w-full px-3.5 py-2.5 bg-[#1C2114] border border-[#2D3319] rounded-xl text-[#FAF7F2] placeholder:text-stone-500 focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] text-sm transition-all"
               />
             </div>
           </div>
 
-          <Button
+          <button
             type="submit"
-            className="w-full"
-            size="lg"
             disabled={isLoading}
+            className="w-full py-3 px-4 rounded-xl text-sm font-bold text-white bg-[#B35E2B] hover:bg-[#984E22] active:scale-[0.99] disabled:opacity-50 disabled:pointer-events-none shadow-md transition-all duration-150 cursor-pointer"
           >
-            {isLoading ? "Signing in..." : "Sign In"}
-          </Button>
+            {isLoading ? "Signing in..." : "Sign In to Dashboard"}
+          </button>
         </form>
       </div>
     </div>

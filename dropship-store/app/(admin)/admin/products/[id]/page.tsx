@@ -117,16 +117,16 @@ export default function ProductFormPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">
+      <h1 className="text-2xl font-bold text-[#23271A] tracking-tight mb-6">
         {isNew ? "Add New Product" : "Edit Product"}
       </h1>
 
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-lg shadow-sm p-6 space-y-6"
+        className="bg-white rounded-xl shadow-xs border border-[#E5DFD7] p-6 sm:p-8 space-y-6"
       >
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-bold text-[#2D3319] mb-1.5">
             Product Name
           </label>
           <input
@@ -136,12 +136,12 @@ export default function ProductFormPage() {
             onChange={(e) =>
               setFormData({ ...formData, name: e.target.value })
             }
-            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3.5 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] shadow-2xs transition-all"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-bold text-[#2D3319] mb-1.5">
             Description / Details
           </label>
           <textarea
@@ -151,14 +151,14 @@ export default function ProductFormPage() {
             onChange={(e) =>
               setFormData({ ...formData, details: e.target.value })
             }
-            className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full px-3.5 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] shadow-2xs transition-all"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Original Price
+            <label className="block text-sm font-bold text-[#2D3319] mb-1.5">
+              Original Price (₱)
             </label>
             <input
               type="number"
@@ -171,12 +171,12 @@ export default function ProductFormPage() {
                   originalPrice: parseFloat(e.target.value) || 0,
                 })
               }
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3.5 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] shadow-2xs transition-all"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Discount Price
+            <label className="block text-sm font-bold text-[#2D3319] mb-1.5">
+              Discount Sale Price (₱)
             </label>
             <input
               type="number"
@@ -189,14 +189,14 @@ export default function ProductFormPage() {
                   discountPrice: parseFloat(e.target.value) || 0,
                 })
               }
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3.5 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] shadow-2xs transition-all"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-bold text-[#2D3319] mb-1.5">
               Category
             </label>
             <select
@@ -205,7 +205,7 @@ export default function ProductFormPage() {
               onChange={(e) =>
                 setFormData({ ...formData, categoryId: e.target.value })
               }
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3.5 py-2.5 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] shadow-2xs transition-all cursor-pointer font-medium"
             >
               <option value="">Select a category</option>
               {categories.map((cat) => (
@@ -218,7 +218,7 @@ export default function ProductFormPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+          <label className="block text-sm font-bold text-[#2D3319] mb-1.5">
             Product Image
           </label>
 
@@ -228,12 +228,12 @@ export default function ProductFormPage() {
                 <img
                   src={formData.imageUrl}
                   alt="Product preview"
-                  className="w-40 h-40 object-cover rounded-lg border"
+                  className="w-40 h-40 object-cover rounded-lg border border-[#E5DFD7] shadow-2xs"
                 />
                 <button
                   type="button"
                   onClick={handleRemoveImage}
-                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600"
+                  className="absolute -top-2 -right-2 bg-red-700 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-800 shadow-xs cursor-pointer"
                 >
                   ✕
                 </button>
@@ -241,17 +241,17 @@ export default function ProductFormPage() {
             ) : (
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="w-40 h-40 border-2 border-dashed rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-colors"
+                className="w-40 h-40 border-2 border-dashed border-[#E5DFD7] rounded-xl flex flex-col items-center justify-center cursor-pointer hover:border-[#B35E2B] hover:bg-[#FAF7F2] transition-colors p-4"
               >
                 {uploading ? (
                   <div className="text-center">
-                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-600 border-t-transparent mx-auto"></div>
-                    <p className="text-sm text-gray-500 mt-2">Uploading...</p>
+                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#B35E2B] border-t-transparent mx-auto"></div>
+                    <p className="text-xs font-semibold text-stone-600 mt-2">Uploading...</p>
                   </div>
                 ) : (
                   <div className="text-center">
                     <svg
-                      className="w-8 h-8 text-gray-400 mx-auto"
+                      className="w-8 h-8 text-stone-400 mx-auto"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -259,15 +259,15 @@ export default function ProductFormPage() {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        strokeWidth={2}
+                        strokeWidth={1.75}
                         d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                       />
                     </svg>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-xs font-semibold text-[#2D3319] mt-2">
                       Click to upload
                     </p>
-                    <p className="text-xs text-gray-400">
-                      JPEG, PNG, WebP, GIF (max 5MB)
+                    <p className="text-[10px] text-stone-500 mt-0.5">
+                      PNG, JPG, WebP (max 5MB)
                     </p>
                   </div>
                 )}
@@ -284,11 +284,11 @@ export default function ProductFormPage() {
           </div>
 
           {uploadError && (
-            <p className="mt-2 text-sm text-red-600">{uploadError}</p>
+            <p className="mt-2 text-sm font-semibold text-red-700">{uploadError}</p>
           )}
 
           <div className="mt-3">
-            <label className="block text-xs text-gray-500 mb-1">
+            <label className="block text-xs font-semibold text-stone-600 mb-1">
               Or paste an image URL:
             </label>
             <input
@@ -297,13 +297,13 @@ export default function ProductFormPage() {
               onChange={(e) =>
                 setFormData({ ...formData, imageUrl: e.target.value })
               }
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
+              className="w-full px-3 py-2 bg-white border border-[#E5DFD7] rounded-lg text-sm text-[#23271A] focus:outline-none focus:ring-2 focus:ring-[#B35E2B] focus:border-[#B35E2B] shadow-2xs"
               placeholder="https://example.com/image.jpg"
             />
           </div>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 pt-4 border-t border-[#E5DFD7]/60">
           <Button type="submit" disabled={saving || uploading}>
             {saving ? "Saving..." : isNew ? "Create Product" : "Update Product"}
           </Button>
